@@ -22,7 +22,7 @@
     "test": "react-scripts test --forceExit --env=jest-environment-jsdom-sixteen",
     "eject": "react-scripts eject",
     "lint": "eslint \"src/**/*.{js, css, html, json, ts, tsx}\" --no-error-on-unmatched-pattern",
-    "mock-server": "json-server --watch mockServer/db.json --routes mockServer/routes.json --port 3004"
+    "mock-server": "json-server --watch mockServer/db.json --routes mockServer/routes.json --port 3010"
   },
   "eslintConfig": {
     "extends": "react-app"

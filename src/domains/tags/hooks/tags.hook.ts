@@ -21,7 +21,7 @@ export enum ActionEnum {
  *   { state: ActionEnum; setState: Function }
  * ]}
  */
-export function useTagsFacade(): [
+export function useTagsFacade(componentId: string): [
   ITagState,
   ITag,
   Function,
@@ -50,7 +50,11 @@ export function useTagsFacade(): [
 
   useEffect(() => {
     tagStore.init()
-    const tagSubscription = tagStore.subscribe((store) => setTagState(store))
+    const tagSubscription = tagStore.subscribe((store) => {
+      console.log({ store })
+      setTagState(store);
+    })
+    console.log('Effect de: ', componentId)
     getTags()
 
     return () => tagSubscription.unsubscribe()

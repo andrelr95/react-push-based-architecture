@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useTagsFacade, ActionEnum } from 'domains/tags/hooks/tags.hook'
 import Input from 'components/InputText'
 import * as s from './styles'
@@ -10,7 +10,11 @@ export default function App() {
     setTagEditor,
     addTag,
     actionState,
-  ] = useTagsFacade()
+  ] = useTagsFacade('TagComponent')
+
+  useEffect(() => {
+    console.log('TagComponent', { tags })
+  }, [tags])
 
   return (
     <>
