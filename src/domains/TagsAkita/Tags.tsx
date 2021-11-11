@@ -1,9 +1,11 @@
-import { useTagsFacade } from 'domains/tags/hooks/tags.hook'
-import { ITag, tagsQuery, tagsService } from 'domains/TagsAkita/state';
+import * as React from 'react';
+import { ITag, tagsQuery, tagsService } from './state';
 import { untilDestroyed } from 'helpers/take-until';
-import React from 'react'
+import Input from 'components/InputText'
+import * as s from './styles'
+// import { Books } from './Book';
 
-export default class TagsPageCounter extends React.PureComponent {
+export default class TagsPageComponent extends React.PureComponent {
   state: { tags: ITag[]; loading: boolean } = { tags: [], loading: true };
 
   componentDidMount() {
@@ -14,8 +16,6 @@ export default class TagsPageCounter extends React.PureComponent {
     tagsQuery.selectLoading()
       .pipe(untilDestroyed(this))
       .subscribe(loading => this.setState({ loading }));
-
-      tagsService.fetch();
   }
 
   render() {
@@ -25,8 +25,19 @@ export default class TagsPageCounter extends React.PureComponent {
       view = <h1>Loading Tags...</h1>
     } else {
       view = <>
-        <div>
-        <span>Total de {this.state.tags.length} tags!</span>
+      <div className="panel">
+        <h2>Tags</h2>
+        <hr></hr>
+        <s.TagContent>
+          {this.state.tags?.map((tag) => (
+            <s.Tag
+              key={tag.id}
+              onClick={() => console.log('event click')}
+            >
+              {tag.text}
+            </s.Tag>
+          ))}
+        </s.TagContent>
       </div>
     </>;
     }

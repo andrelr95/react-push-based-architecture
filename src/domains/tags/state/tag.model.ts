@@ -1,5 +1,7 @@
+import { ID } from "@datorama/akita";
+
 export type ITag = {
-  id?: number
+  id: ID
   text: string
   active: boolean
 }

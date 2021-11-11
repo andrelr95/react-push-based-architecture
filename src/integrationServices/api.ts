@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosAdapter, AxiosPromise } from 'axios'
 import {
   baseURL,
   responseErrorInterceptor,
@@ -22,7 +22,7 @@ axiosInstance.interceptors.response.use(
  *
  * @param {string} path
  */
-const get = (path: string) => axiosInstance(path)
+const get = <T>(path: string) => axiosInstance(path) as AxiosPromise<T>
 
 /**
  * POST Method for HTTP Request with axios instance

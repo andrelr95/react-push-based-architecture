@@ -10,8 +10,9 @@ import tagStore from '../state/tag.store'
 async function getTags() {
   try {
     tagStore.setLoading(true)
-    const response = await get('/tags')
-    tagStore.setTags(response.data)
+    const { data } = await get<ITag[]>('/tags')
+    console.log({ data })
+    tagStore.setTags(data)
   } catch (error) {
     treatException(error)
   }

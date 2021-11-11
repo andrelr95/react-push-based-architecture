@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { ITag, ITagState } from '../state/tag.model'
 import tagStore from 'domains/tags/state/tag.store'
 import { getTags, postNewTag, putTag } from '../service/tag.service'
+import { guid } from '@datorama/akita'
 
 export enum ActionEnum {
   None,
@@ -30,6 +31,7 @@ export function useTagsFacade(componentId: string): [
 ] {
   const [tagState, setTagState] = useState<ITagState>(tagStore.initialState)
   const [tagEditor, setTagEditor] = useState<ITag>({
+    id: guid(),
     text: '',
     active: true,
   })
@@ -37,13 +39,13 @@ export function useTagsFacade(componentId: string): [
 
   const addTag = () => {
     if (actionState === ActionEnum.Inserting) {
-      const newTag: ITag = { text: tagEditor.text, active: true }
+      const newTag: ITag = { id: guid(), text: tagEditor.text, active: true }
       postNewTag(newTag)
-      setTagEditor({ text: '', active: true })
+      setTagEditor({ id: guid(), text: '', active: true })
       setActionState(ActionEnum.None)
     } else {
       putTag(tagEditor)
-      setTagEditor({ text: '', active: true })
+      setTagEditor({ id: guid(), text: '', active: true })
       setActionState(ActionEnum.None)
     }
   }
